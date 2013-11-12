@@ -29,9 +29,10 @@ bill@ardanstudios.com
 	
 If you use LiteIDE add this to your gosrc.xml file under Preferences/LiteBuild
 
-<action id="Run Revel" menu="BuildAndRun" img="blue/run.png" cmd="revel" args="run $(TARGETARGS)" output="true" codec="utf-8" readline="true"/>
+	<action id="Run Revel" menu="BuildAndRun" img="blue/run.png" cmd="revel" args="run $(TARGETARGS)" output="true" codec="utf-8" readline="true"/>
 
 Then in your Build Configuration add your project import path to the TARGETARGS
+
 	TARGETARGS: github.com/goinggo/revel-mgo
 	
 This will allow you to run revel from inside of LiteIDE
