@@ -77,7 +77,6 @@ func WARN(routineName string, functionName string, format string, a ...interface
 func ERROR(err error, routineName string, functionName string) {
 	Serialize.Lock()
 	defer Serialize.Unlock()
-	revel.ERROR.Output(2, fmt.Sprintf("%s : %s : Info : %s\n", err))
 	revel.ERROR.Output(2, fmt.Sprintf("%s : %s : Info : %s\n", routineName, functionName, err))
 }
 
