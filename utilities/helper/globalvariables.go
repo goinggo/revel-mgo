@@ -1,0 +1,3 @@
+package helper
+
+//** GLOBAL VARIABLES
