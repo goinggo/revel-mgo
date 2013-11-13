@@ -30,7 +30,7 @@ bill@ardanstudios.com
 	http://localhost:9000/region/Gulf%20Of%20Mexico
 
 ### LiteIDE
-If you use LiteIDE add this to your gosrc.xml file under Preferences/LiteBuild
+If you use LiteIDE, add this to your gosrc.xml file under Preferences/LiteBuild
 
 	<action id="Run Revel" menu="BuildAndRun" img="blue/run.png" cmd="revel" args="run $(TARGETARGS)" output="true" codec="utf-8" readline="true"/>
 
