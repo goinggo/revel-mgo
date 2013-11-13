@@ -19,6 +19,7 @@ type App struct {
 func init() {
 	revel.InterceptMethod((*App).Before, revel.BEFORE)
 	revel.InterceptMethod((*App).After, revel.AFTER)
+	revel.InterceptMethod((*App).Panic, revel.PANIC)
 }
 
 //** CONTROLLER FUNCTIONS

@@ -44,7 +44,7 @@ func (this *BaseController) After() revel.Result {
 	return nil
 }
 
-// After is called once the controller method completes
+// Panic is called is an panic is caught by the framework
 func (this *BaseController) Panic() revel.Result {
 	defer func() {
 		mongo.CloseSession(this.Session.Id(), this.MongoSession)
