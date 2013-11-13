@@ -39,6 +39,9 @@ func initApp() {
 	tracelog.EmailTo = revel.Config.StringDefault("email.to", "")
 	tracelog.EmailAlertSubject = revel.Config.StringDefault("email.alert_subject", "")
 
+	// MongoDB Settings
+	helper.MONGO_DATABASE = revel.Config.StringDefault("mgo.use_database", "")
+
 	// Init mongo
 	err := mongo.Startup(helper.MAIN_GO_ROUTINE)
 	if err != nil {

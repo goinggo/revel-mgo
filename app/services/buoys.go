@@ -42,7 +42,7 @@ func FindStation(controller *cb.BaseController, stationId string) (buoyStation *
 	tracelog.STARTED(controller.Session.Id(), "FindStation")
 
 	// Access the collection
-	collection, err := mongo.GetCollection(controller.MongoSession, MONGO_DATABASE, "buoy_stations")
+	collection, err := mongo.GetCollection(controller.MongoSession, helper.MONGO_DATABASE, "buoy_stations")
 	if err != nil {
 		tracelog.COMPLETED_ERROR(err, helper.MAIN_GO_ROUTINE, "FindStation")
 		return buoyStation, err
@@ -66,7 +66,7 @@ func FindRegion(controller *cb.BaseController, region string) (buoyStations []*B
 	tracelog.STARTED(controller.Session.Id(), "FindRegion")
 
 	// Access the collection
-	collection, err := mongo.GetCollection(controller.MongoSession, MONGO_DATABASE, "buoy_stations")
+	collection, err := mongo.GetCollection(controller.MongoSession, helper.MONGO_DATABASE, "buoy_stations")
 	if err != nil {
 		tracelog.COMPLETED_ERROR(err, helper.MAIN_GO_ROUTINE, "FindRegion")
 		return buoyStations, err
