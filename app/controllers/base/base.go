@@ -9,11 +9,13 @@ import (
 
 //** TYPES
 
-// BaseController contains common properties
-type BaseController struct {
-	*revel.Controller
-	MongoSession *mgo.Session
-}
+type (
+	// BaseController contains common properties
+	BaseController struct {
+		*revel.Controller
+		MongoSession *mgo.Session
+	}
+)
 
 //** INTERCEPT FUNCTIONS
 

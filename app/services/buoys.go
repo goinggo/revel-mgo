@@ -10,28 +10,30 @@ import (
 
 //** TYPES
 
-// BuoyCondition contains information for an individual station
-type BuoyCondition struct {
-	WindSpeed     float64 `bson:"wind_speed_milehour"`
-	WindDirection int     `bson:"wind_direction_degnorth"`
-	WindGust      float64 `bson:"gust_wind_speed_milehour"`
-}
+type (
+	// BuoyCondition contains information for an individual station
+	BuoyCondition struct {
+		WindSpeed     float64 `bson:"wind_speed_milehour"`
+		WindDirection int     `bson:"wind_direction_degnorth"`
+		WindGust      float64 `bson:"gust_wind_speed_milehour"`
+	}
 
-// BuoyLocation contains the buoys location
-type BuoyLocation struct {
-	Type        string    `bson:"type"`
-	Coordinates []float64 `bson:"coordinates"`
-}
+	// BuoyLocation contains the buoys location
+	BuoyLocation struct {
+		Type        string    `bson:"type"`
+		Coordinates []float64 `bson:"coordinates"`
+	}
 
-// BuoyStation contains information for an individual station
-type BuoyStation struct {
-	ID        bson.ObjectId `bson:"_id,omitempty"`
-	StationId string        `bson:"station_id"`
-	Name      string        `bson:"name"`
-	LocDesc   string        `bson:"location_desc"`
-	Condition BuoyCondition `bson:"condition"`
-	Location  BuoyLocation  `bson:"location"`
-}
+	// BuoyStation contains information for an individual station
+	BuoyStation struct {
+		ID        bson.ObjectId `bson:"_id,omitempty"`
+		StationId string        `bson:"station_id"`
+		Name      string        `bson:"name"`
+		LocDesc   string        `bson:"location_desc"`
+		Condition BuoyCondition `bson:"condition"`
+		Location  BuoyLocation  `bson:"location"`
+	}
+)
 
 //** PUBLIC FUNCTIONS
 

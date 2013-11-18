@@ -1,6 +1,6 @@
 package helper
 
-//** GLOBAL VARIABLES
+//** PACKAGE VARIABLES
 
 var (
 	MONGO_DATABASE string

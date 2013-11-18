@@ -8,10 +8,12 @@ import (
 
 //** TYPES
 
-// App is the controller type
-type App struct {
-	cb.BaseController
-}
+type (
+	// App is the controller type
+	App struct {
+		cb.BaseController
+	}
+)
 
 //** INIT FUNCTION
 
