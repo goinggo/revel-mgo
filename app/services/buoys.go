@@ -50,14 +50,17 @@ func FindStation(controller *cb.BaseController, stationId string) (buoyStation *
 		return buoyStation, err
 	}
 
-	// Build the query and display it to the log
+	// Find the specified station id
 	queryMap := bson.M{"station_id": stationId}
 	tracelog.TRACE(helper.MAIN_GO_ROUTINE, "FindStation", "Query : %s", mongo.ToString(queryMap))
 
-	// Find all the specified stations
+	// Execute the query
 	buoyStation = &BuoyStation{}
-	query := collection.Find(queryMap)
-	err = query.One(buoyStation)
+	err = collection.Find(queryMap).One(buoyStation)
+	if err != nil {
+		tracelog.COMPLETED_ERROR(err, helper.MAIN_GO_ROUTINE, "FindStation")
+		return buoyStation, err
+	}
 
 	tracelog.COMPLETED(controller.Session.Id(), "FindStation")
 	return buoyStation, err
@@ -76,14 +79,17 @@ func FindRegion(controller *cb.BaseController, region string) (buoyStations []*B
 		return buoyStations, err
 	}
 
-	// Build the query and display it to the log
+	// Find the specified region
 	queryMap := bson.M{"region": region}
 	tracelog.TRACE(helper.MAIN_GO_ROUTINE, "FindRegion", "Query : %s", mongo.ToString(queryMap))
 
 	// Capture the specified buoy
 	buoyStations = []*BuoyStation{}
-	query := collection.Find(queryMap)
-	err = query.All(&buoyStations)
+	err = collection.Find(queryMap).All(&buoyStations)
+	if err != nil {
+		tracelog.COMPLETED_ERROR(err, helper.MAIN_GO_ROUTINE, "FindRegion")
+		return buoyStations, err
+	}
 
 	tracelog.COMPLETED(controller.Session.Id(), "FindRegion")
 	return buoyStations, err
