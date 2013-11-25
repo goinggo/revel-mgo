@@ -1,0 +1,8 @@
+# For LiteIDE Debugging
+#If your routes have changed, run revel in normal mode to create everything.
+#If you just changed code then using the build-debug.sh is enough
+
+# Use Debug External Program after building your project
+
+$GOPATH/bin/revel-mgo
+-importPath="github.com/goinggo/revel-mgo" -runMode="dev" -srcPath="/Users/bill/Spaces/Go/Projects/src"
