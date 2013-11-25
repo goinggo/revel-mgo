@@ -8,11 +8,13 @@
 package mongo
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/goinggo/revel-mgo/utilities/helper"
 	"github.com/goinggo/revel-mgo/utilities/tracelog"
 	"github.com/robfig/revel"
 	"labix.org/v2/mgo"
+	"labix.org/v2/mgo/bson"
 	"strings"
 	"time"
 )
@@ -237,4 +239,13 @@ func CollectionExists(sessionId string, mongoSession *mgo.Session, useDatabase s
 	}
 
 	return false
+}
+
+// Converts the queryMap to a string for logging
+func DisplayQuery(queryMap bson.M) string {
+	json, err := json.Marshal(query)
+	if err != nil {
+		return ""
+	}
+	return string(json)
 }

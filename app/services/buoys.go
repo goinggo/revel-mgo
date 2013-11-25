@@ -74,8 +74,12 @@ func FindRegion(controller *cb.BaseController, region string) (buoyStations []*B
 		return buoyStations, err
 	}
 
+	// Build the query and display it to the log
+	queryMap := bson.M{"region": region}
+	tracelog.TRACE(helper.MAIN_GO_ROUTINE, "FindRegion", "Query : %s", mongo.DisplayQuery(queryMap))
+
 	// Find all the specified stations
-	query := collection.Find(bson.M{"region": region})
+	query := collection.Find(queryMap)
 
 	// Capture the specified buoy
 	buoyStations = []*BuoyStation{}
