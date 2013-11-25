@@ -241,9 +241,9 @@ func CollectionExists(sessionId string, mongoSession *mgo.Session, useDatabase s
 	return false
 }
 
-// Converts the queryMap to a string for logging
-func DisplayQuery(queryMap bson.M) string {
-	json, err := json.Marshal(query)
+// ToString converts the quer map to a string
+func ToString(queryMap bson.M) string {
+	json, err := json.Marshal(queryMap)
 	if err != nil {
 		return ""
 	}
