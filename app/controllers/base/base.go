@@ -1,6 +1,7 @@
 package controllerbase
 
 import (
+	"github.com/goinggo/revel-mgo/utilities/helper"
 	"github.com/goinggo/revel-mgo/utilities/mongo"
 	"github.com/goinggo/revel-mgo/utilities/tracelog"
 	"github.com/robfig/revel"
@@ -60,4 +61,9 @@ func (this *BaseController) Panic() revel.Result {
 // Base returns a pointer of the BaseController type
 func (this *BaseController) Base() *BaseController {
 	return this
+}
+
+// Execute the MongoDB literal function
+func (this *BaseController) MongoDB(collectionName string, mongoCall mongo.MongoCall) (err error) {
+	return mongo.Execute(this.Session.Id(), this.MongoSession, helper.MONGO_DATABASE, collectionName, mongoCall)
 }

@@ -50,7 +50,7 @@ func FindStation(controller *cb.BaseController, stationId string) (buoyStation *
 
 	// Execute the query
 	buoyStation = &BuoyStation{}
-	err = mongo.Execute(controller.Session.Id(), controller.MongoSession, helper.MONGO_DATABASE, "buoy_stations",
+	err = controller.MongoDB("buoy_stations",
 		func(collection *mgo.Collection) error {
 			return collection.Find(queryMap).One(buoyStation)
 		})
@@ -76,7 +76,7 @@ func FindRegion(controller *cb.BaseController, region string) (buoyStations []*B
 
 	// Capture the specified buoy
 	buoyStations = []*BuoyStation{}
-	err = mongo.Execute(controller.Session.Id(), controller.MongoSession, helper.MONGO_DATABASE, "buoy_stations",
+	err = controller.MongoDB("buoy_stations",
 		func(collection *mgo.Collection) error {
 			return collection.Find(queryMap).All(&buoyStations)
 		})
