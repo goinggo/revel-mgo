@@ -45,6 +45,10 @@ type (
 	mongoManager struct {
 		sessions map[string]*mongoSession
 	}
+
+	// MongoCall defines a type of function that can be used
+	// to excecute code against MongoDB
+	MongoCall func(*mgo.Collection) error
 )
 
 //** PUBLIC FUNCTIONS
@@ -248,4 +252,29 @@ func ToString(queryMap bson.M) string {
 		return ""
 	}
 	return string(json)
+}
+
+// Execute the MongoDB literal function
+func Execute(sessionId string, mongoSession *mgo.Session, databaseName string, collectionName string, mongoCall MongoCall) (err error) {
+	tracelog.STARTED(sessionId, "Execute")
+
+	// Capture the specified collection
+	collection, err := GetCollection(mongoSession, databaseName, collectionName)
+	if err != nil {
+
+		tracelog.COMPLETED_ERROR(err, sessionId, "Execute")
+		return err
+	}
+
+	// Execute the mongo call
+	err = mongoCall(collection)
+	if err != nil {
+
+		tracelog.COMPLETED_ERROR(err, sessionId, "Execute")
+		return err
+	}
+
+	tracelog.COMPLETED(sessionId, "Execute")
+
+	return err
 }

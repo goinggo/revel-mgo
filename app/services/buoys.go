@@ -5,6 +5,7 @@ import (
 	"github.com/goinggo/revel-mgo/utilities/helper"
 	"github.com/goinggo/revel-mgo/utilities/mongo"
 	"github.com/goinggo/revel-mgo/utilities/tracelog"
+	"labix.org/v2/mgo"
 	"labix.org/v2/mgo/bson"
 )
 
@@ -43,20 +44,17 @@ func FindStation(controller *cb.BaseController, stationId string) (buoyStation *
 
 	tracelog.STARTED(controller.Session.Id(), "FindStation")
 
-	// Access the collection
-	collection, err := mongo.GetCollection(controller.MongoSession, helper.MONGO_DATABASE, "buoy_stations")
-	if err != nil {
-		tracelog.COMPLETED_ERROR(err, helper.MAIN_GO_ROUTINE, "FindStation")
-		return buoyStation, err
-	}
-
 	// Find the specified station id
 	queryMap := bson.M{"station_id": stationId}
 	tracelog.TRACE(helper.MAIN_GO_ROUTINE, "FindStation", "Query : %s", mongo.ToString(queryMap))
 
 	// Execute the query
 	buoyStation = &BuoyStation{}
-	err = collection.Find(queryMap).One(buoyStation)
+	err = mongo.Execute(controller.Session.Id(), controller.MongoSession, helper.MONGO_DATABASE, "buoy_stations",
+		func(collection *mgo.Collection) error {
+			return collection.Find(queryMap).One(buoyStation)
+		})
+
 	if err != nil {
 		tracelog.COMPLETED_ERROR(err, helper.MAIN_GO_ROUTINE, "FindStation")
 		return buoyStation, err
@@ -72,20 +70,17 @@ func FindRegion(controller *cb.BaseController, region string) (buoyStations []*B
 
 	tracelog.STARTED(controller.Session.Id(), "FindRegion")
 
-	// Access the collection
-	collection, err := mongo.GetCollection(controller.MongoSession, helper.MONGO_DATABASE, "buoy_stations")
-	if err != nil {
-		tracelog.COMPLETED_ERROR(err, helper.MAIN_GO_ROUTINE, "FindRegion")
-		return buoyStations, err
-	}
-
 	// Find the specified region
 	queryMap := bson.M{"region": region}
 	tracelog.TRACE(helper.MAIN_GO_ROUTINE, "FindRegion", "Query : %s", mongo.ToString(queryMap))
 
 	// Capture the specified buoy
 	buoyStations = []*BuoyStation{}
-	err = collection.Find(queryMap).All(&buoyStations)
+	err = mongo.Execute(controller.Session.Id(), controller.MongoSession, helper.MONGO_DATABASE, "buoy_stations",
+		func(collection *mgo.Collection) error {
+			return collection.Find(queryMap).All(&buoyStations)
+		})
+
 	if err != nil {
 		tracelog.COMPLETED_ERROR(err, helper.MAIN_GO_ROUTINE, "FindRegion")
 		return buoyStations, err
