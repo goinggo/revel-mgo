@@ -5,8 +5,9 @@
 module:testrunner
 
 GET     /										App.Index
-GET		/station/:stationId						App.Station
-GET		/region/:region							App.Region
+
+GET		/station/:stationId						Buoy.Station
+GET		/region/:region							Buoy.Region
 
 # Ignore favicon requests
 GET     /favicon.ico							404

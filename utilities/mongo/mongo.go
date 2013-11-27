@@ -256,7 +256,7 @@ func ToString(queryMap bson.M) string {
 
 // Execute the MongoDB literal function
 func Execute(sessionId string, mongoSession *mgo.Session, databaseName string, collectionName string, mongoCall MongoCall) (err error) {
-	tracelog.STARTED(sessionId, "Execute")
+	tracelog.STARTEDf(sessionId, "Execute", "Database[%s] Collection[%s]", databaseName, collectionName)
 
 	// Capture the specified collection
 	collection, err := GetCollection(mongoSession, databaseName, collectionName)
